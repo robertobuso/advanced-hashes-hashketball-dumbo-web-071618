@@ -128,48 +128,62 @@ def game_hash
   }
 end
 
-def num_points_scored (name)
+def find_team (name)
   game_hash.each do |location, team_details|
+  if game_hash[location][:players].include? name
+    return location
+  end
+  end
+end
 
-    team_details.each do |attributes, specifics|
+def num_points_scored (name)
+game_hash[(find_team(name))][:players][name][:points]
 
-        if attributes == :players
-          specifics.each do |player_name, stats|
-            if player_name == name
-               return game_hash[location][attributes][name][:points]
-            end
-          end
-        end
-      end
-    end
+#      team_details.each do |attributes, specifics|
+
+#        if attributes == :players
+#          specifics.each do |player_name, stats|
+#            if player_name == name
+#               return game_hash[location][attributes][name][:points]
+    #         end
+    #       end
+    #     end
+    #   end
+    # end
 end
 
 def shoe_size (name)
-  game_hash.each do |location, team_details|
-
-    team_details.each do |attributes, specifics|
-
-        if attributes == :players
-          specifics.each do |player_name, stats|
-            if player_name == name
-               return game_hash[location][attributes][name][:shoe]
-            end
-          end
-        end
-      end
-    end
+  game_hash[(find_team(name))][:players][name][:shoe]
+  # game_hash.each do |location, team_details|
+  #
+  #   team_details.each do |attributes, specifics|
+  #
+  #       if attributes == :players
+  #         specifics.each do |player_name, stats|
+  #           if player_name == name
+  #              return game_hash[location][attributes][name][:shoe]
+  #           end
+  #         end
+  #       end
+  #     end
+  #   end
 end
 
 def team_colors (team_name)
   game_hash.each do |location, team_details|
-
-    team_details.each do |attributes, specifics|
-
-        if specifics == team_name
-               return game_hash[location][:colors]
-        end
-      end
-    end
+  if game_hash[location][:team_name].include? team_name
+    return game_hash[location][:colors]
+  # game_hash.each do |location, team_details|
+  #
+  #   team_details.each do |attributes, specifics|
+  #
+  #       if specifics == team_name
+  #              return game_hash[location][:colors]
+  #       end
+  #     end
+  #   end
+end
+end
 end
 
 def team_names
